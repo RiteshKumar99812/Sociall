@@ -1,0 +1,14 @@
+[Unit]
+Description=Gunicorn instance to serve Sociall FastAPI
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/Sociall
+Environment="PATH=/home/ubuntu/Sociall/venv/bin"
+EnvironmentFile=/home/ubuntu/Sociall/.env
+ExecStart=/home/ubuntu/Sociall/venv/bin/gunicorn -w 2 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:8000
+
+[Install]
+WantedBy=multi-user.target
